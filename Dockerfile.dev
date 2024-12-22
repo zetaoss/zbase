@@ -3,7 +3,6 @@ FROM ghcr.io/zetaoss/zbase:latest
 
 RUN set -eux \
     && apk add --no-cache \
-    build-base \
     composer \
     inotify-tools \
     linux-headers \

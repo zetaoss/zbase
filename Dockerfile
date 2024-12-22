@@ -4,6 +4,7 @@ FROM mediawiki:1.42.3-fpm-alpine
 RUN set -eux \
     && apk add --no-cache \
     autoconf \
+    build-base \
     libzip-dev \
     lua5.1 \
     nginx \
