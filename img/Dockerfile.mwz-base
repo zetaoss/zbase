@@ -1,5 +1,5 @@
 # https://github.com/wikimedia/mediawiki-docker
-FROM 1.42.3-fpm-alpine
+FROM mediawiki:1.42.3-fpm-alpine
 
 RUN apk add --no-cache \
     lua5.1 \
