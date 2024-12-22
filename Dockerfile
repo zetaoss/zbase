@@ -1,5 +1,6 @@
 # https://github.com/wikimedia/mediawiki-docker
 FROM mediawiki:1.42.3-fpm-alpine
+ARG MEDIAWIKI_BRANCH=REL1_42
 
 RUN set -eux \
     && apk add --no-cache \
