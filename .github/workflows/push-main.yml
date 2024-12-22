@@ -22,20 +22,10 @@ jobs:
       id: meta
       uses: docker/metadata-action@v5
 
-    - name: mwz-base
+    - name: push
       uses: docker/build-push-action@v6
       with:
         context: .
-        file: img/Dockerfile.mwz-base
-        push: true
-        tags: ghcr.io/zetaoss/mwz-base:latest
-        labels: ${{ steps.meta.outputs.labels }}
-
-    - name: mwz
-      uses: docker/build-push-action@v6
-      with:
-        context: .
-        file: img/Dockerfile.mwz
         push: true
         tags: ghcr.io/zetaoss/mwz:latest
         labels: ${{ steps.meta.outputs.labels }}
