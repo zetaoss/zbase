@@ -1,0 +1,41 @@
+name: push-main
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  docker-push:
+    runs-on: ubuntu-24.04
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Extract metadata (tags, labels) for Docker
+      id: meta
+      uses: docker/metadata-action@v5
+
+    - name: mwz-base
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        file: img/Dockerfile.mwz-base
+        push: true
+        tags: ghcr.io/zetaoss/mwz-base:latest
+        labels: ${{ steps.meta.outputs.labels }}
+
+    - name: mwz
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        file: img/Dockerfile.mwz
+        push: true
+        tags: ghcr.io/zetaoss/mwz:latest
+        labels: ${{ steps.meta.outputs.labels }}

@@ -1,0 +1,7 @@
+# https://github.com/wikimedia/mediawiki-docker
+FROM 1.42.3-fpm-alpine
+
+RUN apk add --no-cache \
+    lua5.1 \
+    nginx \
+    tini
