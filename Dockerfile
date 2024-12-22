@@ -13,5 +13,4 @@ RUN set -eux \
     tini \
     && docker-php-ext-install zip \
     && pecl install xdebug \
-    && docker-php-ext-enable xdebug \
-    && rm -r /tmp/pear
+    && docker-php-ext-enable xdebug
