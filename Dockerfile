@@ -17,7 +17,7 @@ RUN set -eux \
     && rm -rf /tmp/pear/
 
 RUN set -eux \
-    && cd /var/www/html/extentions/ \
+    && cd /var/www/html/extensions/ \
     && git clone --depth=1 -b $MEDIAWIKI_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/AntiSpoof.git \
     && git clone --depth=1 -b $MEDIAWIKI_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/CheckUser.git \
     && git clone --depth=1 -b $MEDIAWIKI_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/CharInsert.git \
