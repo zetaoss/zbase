@@ -7,7 +7,6 @@ RUN set -eux \
     build-base \
     composer \
     inotify-tools \
-    libzip-dev \
     linux-headers \
     nodejs \
     && docker-php-ext-install zip \
