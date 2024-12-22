@@ -1,2 +1,2 @@
-# mwz
-mediawiki image for z
+# images
+images for zeta
