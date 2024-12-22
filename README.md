@@ -1,2 +1,2 @@
 # images
-images for zeta
+mediawiki images for zeta
