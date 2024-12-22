@@ -14,5 +14,10 @@ RUN set -eux \
     nodejs \
     tini \
     && docker-php-ext-install zip \
-    && pecl install redis xdebug \
-    && docker-php-ext-enable redis xdebug
+    && pecl install \
+    redis \
+    xdebug \
+    && docker-php-ext-enable \
+    redis \
+    xdebug \
+    && rm -rf  /tmp/pear/
