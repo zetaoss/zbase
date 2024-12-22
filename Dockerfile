@@ -6,6 +6,7 @@ COPY --from=composer:lts /usr/bin/composer /usr/bin/composer
 RUN set -eux \
     && apk add --no-cache \
     inotify-tools \
+    libzip-dev \
     lua5.1 \
     nginx \
     nodejs \
