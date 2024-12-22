@@ -8,6 +8,7 @@ RUN set -eux \
     composer \
     inotify-tools \
     libzip-dev \
+    linux-headers \
     lua5.1 \
     nginx \
     nodejs \
