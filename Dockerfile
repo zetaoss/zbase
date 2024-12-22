@@ -1,10 +1,9 @@
 # https://github.com/wikimedia/mediawiki-docker
 FROM mediawiki:1.42.3-fpm-alpine
 
-COPY --from=composer:lts /usr/bin/composer /usr/bin/composer
-
 RUN set -eux \
     && apk add --no-cache \
+    composer \
     inotify-tools \
     libzip-dev \
     lua5.1 \
@@ -12,5 +11,5 @@ RUN set -eux \
     nodejs \
     tini \
     && docker-php-ext-install zip \
-    && pecl install xdebug \
-    && docker-php-ext-enable xdebug
+    && pecl install redis xdebug \
+    && docker-php-ext-enable redis xdebug
