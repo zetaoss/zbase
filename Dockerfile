@@ -9,7 +9,7 @@ RUN set -eux \
     lua5.1 \
     nginx \
     nodejs \
-    tini
+    tini \
     && docker-php-ext-install zip \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
