@@ -15,9 +15,7 @@ RUN set -eux \
     redis \
     && docker-php-ext-enable \
     redis \
-    && rm -rf /tmp/pear/
-
-RUN set -eux \
+    && rm -rf /tmp/pear/ \
     && cd /var/www/html/extensions/ \
     && git clone --depth=1 -b $MEDIAWIKI_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/AntiSpoof.git \
     && git clone --depth=1 -b $MEDIAWIKI_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/CheckUser.git \
