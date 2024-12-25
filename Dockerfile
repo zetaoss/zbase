@@ -11,7 +11,9 @@ RUN set -eux \
     nginx \
     supervisor \
     tini \
-    && docker-php-ext-install zip \
+    && docker-php-ext-install \
+    session \
+    zip \
     && pecl install \
     redis \
     && docker-php-ext-enable \
