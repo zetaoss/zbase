@@ -9,6 +9,7 @@ RUN set -eux \
     libzip-dev \
     lua5.1 \
     nginx \
+    supervisor \
     tini \
     && docker-php-ext-install zip \
     && pecl install \
