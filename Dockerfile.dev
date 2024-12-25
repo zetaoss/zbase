@@ -1,4 +1,3 @@
-# https://github.com/wikimedia/mediawiki-docker
 FROM ghcr.io/zetaoss/zbase:latest
 
 RUN set -eux \
