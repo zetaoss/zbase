@@ -8,6 +8,8 @@ RUN set -eux \
     inotify-tools \
     linux-headers \
     nodejs \
+    shadow \
+    && chsh -s /bin/bash \
     && docker-php-ext-install zip \
     && pecl install \
     xdebug \
