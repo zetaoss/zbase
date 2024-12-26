@@ -3,9 +3,11 @@ FROM mediawiki:1.39.10-fpm
 ARG MEDIAWIKI_BRANCH=REL1_39
 
 RUN set -eux \
+    && curl -fsSL https://deb.nodesource.com/setup_22.x | bash \
     && apt-get update && apt-get install -y \
     libzip-dev \
     nginx \
+    nodejs \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install \
     zip \

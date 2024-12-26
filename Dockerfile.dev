@@ -8,7 +8,6 @@ RUN set -eux \
     supervisor \
     tini \
     && rm -rf /var/lib/apt/lists/* \
-    && curl -fsSL https://deb.nodesource.com/setup_22.x | bash \
     && pecl install \
     xdebug \
     && docker-php-ext-enable \
