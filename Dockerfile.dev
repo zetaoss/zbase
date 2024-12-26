@@ -1,16 +1,14 @@
 FROM ghcr.io/zetaoss/zbase:latest
 
+COPY --from=composer:2.2.25 /usr/bin/composer /usr/bin/composer
+
 RUN set -eux \
-    && apk add --no-cache \
-    bash \
-    composer \
+    && apt-get update && apt-get install -y \
     inotify-tools \
-    linux-headers \
-    nodejs \
-    npm \
-    shadow \
-    && chsh -s /bin/bash \
-    && docker-php-ext-install zip \
+    supervisor \
+    tini \
+    && rm -rf /var/lib/apt/lists/* \
+    && curl -fsSL https://deb.nodesource.com/setup_22.x | bash \
     && pecl install \
     xdebug \
     && docker-php-ext-enable \

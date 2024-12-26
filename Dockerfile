@@ -1,18 +1,13 @@
 # https://github.com/wikimedia/mediawiki-docker
-FROM mediawiki:1.39.10-fpm-alpine
+FROM mediawiki:1.39.10-fpm
 ARG MEDIAWIKI_BRANCH=REL1_39
 
 RUN set -eux \
-    && apk add --no-cache \
-    autoconf \
-    build-base \
+    && apt-get update && apt-get install -y \
     libzip-dev \
-    lua5.1 \
     nginx \
-    supervisor \
-    tini \
+    && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install \
-    session \
     zip \
     && pecl install \
     redis \
