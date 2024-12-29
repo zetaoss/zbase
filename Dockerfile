@@ -1,4 +1,6 @@
-# https://github.com/wikimedia/mediawiki-docker
+# https://github.com/wikimedia/mediawiki-docker/blob/main/1.39/fpm/Dockerfile
+# 2024-12-30 
+# FROM php:8.1-fpm
 FROM php:8.2-fpm
 
 # System dependencies
