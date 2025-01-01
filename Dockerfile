@@ -121,6 +121,7 @@ RUN set -eux \
     nodejs \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install \
+    pdo_mysql \
     zip \
     && pecl install \
     redis \
