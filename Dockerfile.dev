@@ -5,7 +5,9 @@ COPY --from=composer:2.2.25 /usr/bin/composer /usr/bin/composer
 RUN set -eux \
     && apt-get update && apt-get install -y \
     inotify-tools \
+    mysql-client \
     procps \
+    redis-cli \
     supervisor \
     tini \
     && rm -rf /var/lib/apt/lists/* \
