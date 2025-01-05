@@ -7,7 +7,7 @@ RUN set -eux \
     inotify-tools \
     mariadb-client \
     procps \
-    redis-cli \
+    redis-tools \
     supervisor \
     tini \
     && rm -rf /var/lib/apt/lists/* \
