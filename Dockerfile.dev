@@ -18,8 +18,8 @@ RUN set -eux \
 
 RUN set -eux \
     && VSCODE_SERVER_DIR=/root/.vscode-server \
-    && TAG=$(curl -s https://api.github.com/repos/microsoft/vscode/releases | jq -r '[.[] | select(.prerelease == false and .draft == false)][0].tag_name') \
-    && SHA=$(curl -s https://api.github.com/repos/microsoft/vscode/git/ref/tags/$TAG | jq -r '.object.sha') \
+    && VSCODE_VERSION=1.96.2 \
+    && SHA=$(curl -s https://api.github.com/repos/microsoft/vscode/git/ref/tags/$VSCODE_VERSION | jq -r '.object.sha') \
     && mkdir -p "$VSCODE_SERVER_DIR/bin/$SHA" \
     && curl -L "https://update.code.visualstudio.com/commit:$SHA/server-linux-x64/stable" -o vscode-server.tar.gz \
     && tar -xz -C "$VSCODE_SERVER_DIR/bin/$SHA" --strip-components=1 -f vscode-server.tar.gz \
@@ -34,3 +34,17 @@ RUN set -eux \
         vue.volar; do \
         "$VSCODE_SERVER_DIR/bin/$SHA/bin/code-server" --install-extension "$extension"; \
     done
+
+RUN set -eux \
+    && cd / \
+    && git clone https://github.com/zetaoss/zengine.git app \
+    && cd /app/ \
+    && cp -a  /var/www/html                     /app/w \
+    && cp -a  /app/w/composer.local.json-sample /app/w/composer.local.json \
+    && ln -rs /app/mwz/extensions/ZetaExtension /app/w/extensions/ \
+    && ln -rs /app/mwz/skins/ZetaSkin           /app/w/skins/ \
+    && cd /app/laravel/              && composer install \
+    && cd /app/vue/                  && npm install \
+    && cd /app/w/                    && composer update \
+    && cd /app/w/skins/ZetaSkin/vue/ && npm install && npm run build \
+    && chown www-data:www-data -R /app/*
