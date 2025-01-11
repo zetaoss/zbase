@@ -3,17 +3,34 @@ FROM ghcr.io/zetaoss/zbase:latest
 COPY --from=composer:2.2.25 /usr/bin/composer /usr/bin/composer
 
 RUN set -eux \
-    && apt-get update && apt-get install -y \
-    inotify-tools \
-    jq \
-    mariadb-client \
-    procps \
-    redis-tools \
-    supervisor \
-    tini \
-    && rm -rf /var/lib/apt/lists/* \
-    && pecl install \
-    xdebug \
-    && docker-php-ext-enable \
-    xdebug \
-    && rm -rf /tmp/pear/
+&& apt-get update && apt-get install -y \
+inotify-tools \
+jq \
+mariadb-client \
+procps \
+redis-tools \
+supervisor \
+tini \
+&& rm -rf /var/lib/apt/lists/* \
+&& pecl install \
+xdebug \
+&& docker-php-ext-enable \
+xdebug \
+&& rm -rf /tmp/pear/ \
+&& VSCODE_SERVER_DIR=/root/.vscode-server \
+&& TAG=$(curl -s https://api.github.com/repos/microsoft/vscode/releases | jq -r '[.[] | select(.prerelease == false and .draft == false)][0].tag_name') \
+&& SHA=$(curl -s https://api.github.com/repos/microsoft/vscode/git/ref/tags/$TAG | jq -r '.object.sha') \
+&& mkdir -p "$VSCODE_SERVER_DIR/bin/$SHA" \
+&& curl -L "https://update.code.visualstudio.com/commit:$SHA/server-linux-x64/stable" -o vscode-server.tar.gz  \
+&& tar -xz -C "$VSCODE_SERVER_DIR/bin/$SHA" --strip-components=1 -f vscode-server.tar.gz \
+&& rm -f vscode-server.tar.gz \
+&& for extension in \
+bradlc.vscode-tailwindcss \
+dbaeumer.vscode-eslint \
+editorconfig.editorconfig \
+kokororin.vscode-phpfmt \
+ms-vscode.makefile-tools \
+shufo.vscode-blade-formatter \
+vue.volar; do\
+"$VSCODE_SERVER_DIR/bin/$SHA/bin/code-server" --install-extension "$extension"; \
+done
