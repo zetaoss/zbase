@@ -3,13 +3,13 @@ FROM ghcr.io/zetaoss/zbase:latest
 COPY --from=composer:2.2.25 /usr/bin/composer /usr/bin/composer
 
 RUN set -eux \
-    && curl https://raw.githubusercontent.com/fluent/fluent-bit/master/install.sh | sh \
     && apt-get update && apt-get install -y --no-install-recommends \
         inotify-tools \
         jq \
         mariadb-client \
         procps \
         redis-tools \
+        rsyslog \
         supervisor \
         tini \
     && rm -rf /var/lib/apt/lists/* \
