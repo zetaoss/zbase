@@ -9,6 +9,7 @@ RUN set -eux \
         jq \
         mariadb-client \
         procps \
+        psmisc \ 
         redis-tools \
         supervisor \
         tini \
@@ -30,8 +31,8 @@ RUN set -eux \
         bradlc.vscode-tailwindcss \
         dbaeumer.vscode-eslint \
         editorconfig.editorconfig \
-        kokororin.vscode-phpfmt \
         ms-vscode.makefile-tools \
+        open-southeners.laravel-pint \
         shufo.vscode-blade-formatter \
         vue.volar; do \
         "$VSCODE_SERVER_DIR/bin/$SHA/bin/code-server" --install-extension "$extension"; \
