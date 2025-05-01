@@ -1,5 +1,5 @@
 # https://github.com/wikimedia/mediawiki-docker/blob/main/1.39/fpm/Dockerfile
-# 2024-12-30 
+# 2024-12-30
 # FROM php:8.1-fpm
 FROM php:8.2-fpm
 
@@ -34,6 +34,7 @@ RUN set -eux; \
 		mbstring \
 		mysqli \
 		opcache \
+		pcntl \
 	; \
 	\
 	pecl install APCu-5.1.24; \
@@ -128,6 +129,7 @@ RUN set -eux \
     && docker-php-ext-enable \
     redis \
     && rm -rf /tmp/pear/ \
+    && docker-php-ext-install pcntl \
     && cd /var/www/html/extensions/ \
     && git clone --depth=1 -b $MEDIAWIKI_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/AntiSpoof.git \
     && git clone --depth=1 -b $MEDIAWIKI_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/CheckUser.git \
