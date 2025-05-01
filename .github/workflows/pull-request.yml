@@ -1,0 +1,33 @@
+name: pull-request
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  docker-build:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+
+      - name: zbase
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile
+          push: false
+          tags: ghcr.io/zetaoss/zbase:latest
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: zbase-dev
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile.dev
+          push: false
+          tags: ghcr.io/zetaoss/zbase-dev:latest
+          labels: ${{ steps.meta.outputs.labels }}
