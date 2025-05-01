@@ -21,7 +21,7 @@ RUN set -eux \
 
 RUN set -eux \
     && VSCODE_SERVER_DIR=/root/.vscode-server \
-    && VSCODE_VERSION=1.96.2 \
+    && VSCODE_VERSION=1.99.3 \
     && SHA=$(curl -s https://api.github.com/repos/microsoft/vscode/git/ref/tags/$VSCODE_VERSION | jq -r '.object.sha') \
     && mkdir -p "$VSCODE_SERVER_DIR/bin/$SHA" \
     && curl -L "https://update.code.visualstudio.com/commit:$SHA/server-linux-x64/stable" -o vscode-server.tar.gz \
