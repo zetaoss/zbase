@@ -28,6 +28,7 @@ jobs:
           context: .
           file: Dockerfile
           push: true
+          load: true
           tags: ghcr.io/zetaoss/zbase:latest
           labels: ${{ steps.meta.outputs.labels }}
 
