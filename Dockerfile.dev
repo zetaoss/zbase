@@ -31,9 +31,9 @@ RUN set -eux \
         bradlc.vscode-tailwindcss \
         dbaeumer.vscode-eslint \
         editorconfig.editorconfig \
+        evgenius33.laravel-pint-fixer \
         laravel.vscode-laravel \
         ms-vscode.makefile-tools \
-        open-southeners.laravel-pint \
         shufo.vscode-blade-formatter \
         vue.volar; do \
         "$VSCODE_SERVER_DIR/bin/$SHA/bin/code-server" --install-extension "$extension"; \
