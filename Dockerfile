@@ -120,6 +120,8 @@ RUN set -eux \
     nginx \
     nodejs \
     && rm -rf /var/lib/apt/lists/* \
+	&& corepack enable \
+	&& corepack prepare pnpm@10 --activate \
     && docker-php-ext-install \
     pdo_mysql \
     zip \
