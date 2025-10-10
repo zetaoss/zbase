@@ -74,8 +74,8 @@ RUN set -eux; \
 	chown -R www-data:www-data /var/www/data
 
 # Version
-ENV MEDIAWIKI_MAJOR_VERSION 1.39
-ENV MEDIAWIKI_VERSION 1.39.11
+ENV MEDIAWIKI_MAJOR_VERSION=1.39
+ENV MEDIAWIKI_VERSION=1.39.11
 
 # MediaWiki setup
 RUN set -eux; \
@@ -120,6 +120,8 @@ RUN set -eux \
     nginx \
     nodejs \
     && rm -rf /var/lib/apt/lists/* \
+	&& corepack enable \
+	&& corepack prepare pnpm@10 --activate \
     && docker-php-ext-install \
     pdo_mysql \
     zip \
