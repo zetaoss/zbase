@@ -48,7 +48,7 @@ RUN set -eux \
     && ln -rs /app/mwz/extensions/ZetaExtension /app/w/extensions/ \
     && ln -rs /app/mwz/skins/ZetaSkin           /app/w/skins/ \
     && cd /app/laravel/              && composer install --no-interaction --prefer-dist \
-    && cd /app/vue/                  && pnpm approve-builds @parcel/watcher         && pnpm install \
-    && cd /app/w/                    && composer update --no-interaction --prefer-dist \
+    && cd /app/w/                    && composer update  --no-interaction --prefer-dist \
+    && cd /app/vue/                  && pnpm approve-builds esbuild vue-demi && pnpm install \
     && cd /app/w/skins/ZetaSkin/vue/ && pnpm approve-builds @parcel/watcher esbuild && pnpm install --frozen-lockfile&& pnpm run build \
     && chown www-data:www-data -R /app/*
