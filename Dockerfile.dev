@@ -47,8 +47,8 @@ RUN set -eux \
     && cp -a  /app/w/composer.local.json-sample /app/w/composer.local.json \
     && ln -rs /app/mwz/extensions/ZetaExtension /app/w/extensions/ \
     && ln -rs /app/mwz/skins/ZetaSkin           /app/w/skins/ \
-    && cd /app/laravel/              && composer install \
-    && cd /app/vue/                  && pnpm install \
-    && cd /app/w/                    && composer update \
-    && cd /app/w/skins/ZetaSkin/vue/ && pnpm install && pnpm run build \
+    && cd /app/laravel/              && composer install --no-interaction --prefer-dist \
+    && cd /app/vue/                  && PNPM_ALLOW_SCRIPTS="*" pnpm install \
+    && cd /app/w/                    && composer update --no-interaction --prefer-dist \
+    && cd /app/w/skins/ZetaSkin/vue/ && PNPM_ALLOW_SCRIPTS="*" pnpm install && pnpm run build \
     && chown www-data:www-data -R /app/*
