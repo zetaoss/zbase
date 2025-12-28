@@ -1,15 +1,13 @@
 ### Additional setup for zbase dev
-ARG COMPOSER_VERSION=2.9.2 # https://hub.docker.com/_/composer/tags
-ARG VSCODE_VERSION=1.107.1 # https://github.com/microsoft/vscode/releases
-
-FROM composer:${COMPOSER_VERSION} AS composer
-
 FROM ghcr.io/zetaoss/zbase:latest
 
-COPY --from=composer /usr/bin/composer /usr/bin/composer
+ARG VSCODE_VERSION=1.107.1 # https://github.com/microsoft/vscode/releases
+
+# https://hub.docker.com/_/composer/tags
+COPY --from=composer:2.9.2 /usr/bin/composer /usr/bin/composer
+COPY --from=fluent/fluent-bit:latest /fluent-bit/bin/fluent-bit /usr/local/bin/fluent-bit
 
 RUN set -eux \
-    && curl https://raw.githubusercontent.com/fluent/fluent-bit/master/install.sh | sh \
     && apt-get update && apt-get install -y --no-install-recommends \
         inotify-tools \
         jq \
