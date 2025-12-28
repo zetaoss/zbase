@@ -51,5 +51,7 @@ jobs:
           context: .
           file: Dockerfile.dev
           push: true
+          build-args: |
+            ZBASE_TAG=${{ github.ref_name }}
           tags: ${{ steps.meta_zbase_dev.outputs.tags }}
           labels: ${{ steps.meta_zbase_dev.outputs.labels }}

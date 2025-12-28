@@ -1,5 +1,7 @@
+ARG ZBASE_TAG=latest
+
 ### Additional setup for zbase dev
-FROM ghcr.io/zetaoss/zbase:latest
+FROM ghcr.io/zetaoss/zbase:${ZBASE_TAG}
 
 ARG VSCODE_VERSION=1.107.1 # https://github.com/microsoft/vscode/releases
 

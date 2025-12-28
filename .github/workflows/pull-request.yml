@@ -29,5 +29,7 @@ jobs:
           context: .
           file: Dockerfile.dev
           push: false
+          build-args: |
+            ZBASE_TAG=latest
           tags: ghcr.io/zetaoss/zbase-dev:latest
           labels: ${{ steps.meta.outputs.labels }}
