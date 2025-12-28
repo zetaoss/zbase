@@ -1,3 +1,6 @@
+TAG ?= latest
+
 build:
-	docker build -t ghcr.io/zetaoss/zbase:latest     -f Dockerfile     .
-	docker build -t ghcr.io/zetaoss/zbase-dev:latest -f Dockerfile.dev .
+	# Don't push images from here. Please use the GitHub Actions workflows.
+	docker build -t ghcr.io/zetaoss/zbase:$(TAG) -f Dockerfile .
+	docker build --build-arg ZBASE_TAG=$(TAG) -t ghcr.io/zetaoss/zbase-dev:$(TAG) -f Dockerfile.dev .
