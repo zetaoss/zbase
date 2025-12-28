@@ -1,10 +1,12 @@
 ### Additional setup for zbase dev
-FROM ghcr.io/zetaoss/zbase:latest
-
 ARG COMPOSER_VERSION=2.9.2 # https://hub.docker.com/_/composer/tags
 ARG VSCODE_VERSION=1.107.1 # https://github.com/microsoft/vscode/releases
 
-COPY --from=composer:${COMPOSER_VERSION} /usr/bin/composer /usr/bin/composer
+FROM composer:${COMPOSER_VERSION} AS composer
+
+FROM ghcr.io/zetaoss/zbase:latest
+
+COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 RUN set -eux \
     && curl https://raw.githubusercontent.com/fluent/fluent-bit/master/install.sh | sh \
