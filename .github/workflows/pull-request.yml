@@ -14,32 +14,22 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
 
-      - uses: dorny/paths-filter@v3
-        id: changes
-        with:
-          filters: |
-            dockerfile:
-              - 'Dockerfile'
-            dockerfile_dev:
-              - 'Dockerfile.dev'
-
-      - name: zbase
-        if: steps.changes.outputs.dockerfile == 'true'
+      - name: Build (zbase)
         uses: docker/build-push-action@v6
         with:
           context: .
           file: Dockerfile
           push: false
-          load: true
           tags: ghcr.io/zetaoss/zbase:latest
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: zbase-dev
-        if: steps.changes.outputs.dockerfile_dev == 'true'
+      - name: Build (zbase-dev)
         uses: docker/build-push-action@v6
         with:
           context: .
           file: Dockerfile.dev
           push: false
+          build-args: |
+            ZBASE_TAG=latest
           tags: ghcr.io/zetaoss/zbase-dev:latest
           labels: ${{ steps.meta.outputs.labels }}
