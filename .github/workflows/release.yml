@@ -42,7 +42,6 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          load: true
           tags: ${{ steps.meta_zbase.outputs.tags }}
           labels: ${{ steps.meta_zbase.outputs.labels }}
 
