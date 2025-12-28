@@ -1,6 +1,10 @@
+### Additional setup for zbase dev
 FROM ghcr.io/zetaoss/zbase:latest
 
-COPY --from=composer:2.2.25 /usr/bin/composer /usr/bin/composer
+ARG COMPOSER_VERSION=2.9.2 # https://hub.docker.com/_/composer/tags
+ARG VSCODE_VERSION=1.107.1 # https://github.com/microsoft/vscode/releases
+
+COPY --from=composer:${COMPOSER_VERSION} /usr/bin/composer /usr/bin/composer
 
 RUN set -eux \
     && curl https://raw.githubusercontent.com/fluent/fluent-bit/master/install.sh | sh \
@@ -9,7 +13,7 @@ RUN set -eux \
         jq \
         mariadb-client \
         procps \
-        psmisc \ 
+        psmisc \
         redis-tools \
         supervisor \
         tini \
@@ -21,11 +25,10 @@ RUN set -eux \
 
 RUN set -eux \
     && VSCODE_SERVER_DIR=/root/.vscode-server \
-    && VSCODE_VERSION=1.99.3 \
-    && SHA=$(curl -s https://api.github.com/repos/microsoft/vscode/git/ref/tags/$VSCODE_VERSION | jq -r '.object.sha') \
-    && mkdir -p "$VSCODE_SERVER_DIR/bin/$SHA" \
-    && curl -L "https://update.code.visualstudio.com/commit:$SHA/server-linux-x64/stable" -o vscode-server.tar.gz \
-    && tar -xz -C "$VSCODE_SERVER_DIR/bin/$SHA" --strip-components=1 -f vscode-server.tar.gz \
+    && SHA="$(curl -s https://api.github.com/repos/microsoft/vscode/git/ref/tags/${VSCODE_VERSION} | jq -r '.object.sha')" \
+    && mkdir -p "${VSCODE_SERVER_DIR}/bin/${SHA}" \
+    && curl -L "https://update.code.visualstudio.com/commit:${SHA}/server-linux-x64/stable" -o vscode-server.tar.gz \
+    && tar -xz -C "${VSCODE_SERVER_DIR}/bin/${SHA}" --strip-components=1 -f vscode-server.tar.gz \
     && rm -f vscode-server.tar.gz \
     && for extension in \
         bradlc.vscode-tailwindcss \
@@ -35,8 +38,9 @@ RUN set -eux \
         laravel.vscode-laravel \
         ms-vscode.makefile-tools \
         shufo.vscode-blade-formatter \
+        vitest.explorer \
         vue.volar; do \
-        "$VSCODE_SERVER_DIR/bin/$SHA/bin/code-server" --install-extension "$extension"; \
+        "${VSCODE_SERVER_DIR}/bin/${SHA}/bin/code-server" --install-extension "${extension}"; \
     done
 
 RUN set -eux \
