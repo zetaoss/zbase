@@ -11,6 +11,7 @@ RUN set -eux \
     && apt-get update && apt-get install -y \
         libzip-dev \
         nginx \
+        php-wikidiff2 \
     && rm -rf /var/lib/apt/lists/* \
     ## nvm / node / pnpm
     && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh | bash \
