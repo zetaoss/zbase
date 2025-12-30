@@ -7,12 +7,23 @@ ARG MEDIAWIKI_EMBED_VIDEO_VERSION=v4.0.0 # https://github.com/StarCitizenWiki/me
 
 SHELL ["/bin/bash", "-lc"]
 
+ADD --chmod=0755 
+
 RUN set -eux \
-    && apt-get update && apt-get install -y \
+    ## system packages
+    && apt-get update && apt-get install -y --no-install-recommends \
         libzip-dev \
         nginx \
-        php-wikidiff2 \
     && rm -rf /var/lib/apt/lists/* \
+    ## php extensions
+    && curl -fsSL https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions -o /usr/local/bin/install-php-extensions \
+    && chmod +x /usr/local/bin/install-php-extensions \
+    && install-php-extensions \
+        pdo_mysql \
+        pcntl \
+        redis \
+        wikidiff2 \
+        zip \
     ## nvm / node / pnpm
     && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh | bash \
     && source "$HOME/.nvm/nvm.sh" \
@@ -20,17 +31,8 @@ RUN set -eux \
     && node -v \
     && corepack enable pnpm \
     && pnpm -v \
-    && docker-php-ext-install \
-        pdo_mysql \
-        zip \
-    && pecl install \
-        redis \
-    && docker-php-ext-enable \
-        redis \
-    && rm -rf /tmp/pear/ \
-    && docker-php-ext-install pcntl \
-    && cd /var/www/html/extensions/ \
     ## mediawiki extensions
+    && cd /var/www/html/extensions/ \
     && MEDIAWIKI_BRANCH="REL$(printf '%s' "$MEDIAWIKI_MAJOR_VERSION" | tr '.' '_')" \
     && export MEDIAWIKI_BRANCH \
     && git clone --depth=1 -b $MEDIAWIKI_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/AntiSpoof.git \
