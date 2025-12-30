@@ -7,8 +7,6 @@ ARG MEDIAWIKI_EMBED_VIDEO_VERSION=v4.0.0 # https://github.com/StarCitizenWiki/me
 
 SHELL ["/bin/bash", "-lc"]
 
-ADD --chmod=0755 
-
 RUN set -eux \
     ## system packages
     && apt-get update && apt-get install -y --no-install-recommends \
