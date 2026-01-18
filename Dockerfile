@@ -55,5 +55,5 @@ RUN set -eux \
     ##
     && git clone --depth=1 -b $AWS_S3_VERSION          https://github.com/edwardspec/mediawiki-aws-s3.git                     AWS \
     && git clone --depth=1 -b $EMBED_VIDEO_VERSION     https://github.com/StarCitizenWiki/mediawiki-extensions-EmbedVideo.git EmbedVideo \
-    && git clone --depth=1 -b $SIMPLE_MATH_JAX_VERSION https://github.com/jmnote/SimpleMathJax.git \
+    && git clone --depth=1 -b $SIMPLE_MATH_JAX_VERSION https://github.com/jmnote/SimpleMathJax.git                            SimpleMathJax \
     && echo done
