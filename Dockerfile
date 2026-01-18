@@ -1,6 +1,6 @@
 FROM mediawiki:1.43.6-fpm
 
-ARG NVM_VERSION=v0.40.3                  # https://nodejs.org/en/download
+ARG NVM_VERSION=v0.40.3                  # https://nodejs.org/en/download LTS for linux using nvm
 ARG NODE_MAJOR_VERSION=24                # https://nodejs.org/en/download
 ARG MEDIAWIKI_AWS_S3_VERSION=v0.13.1     # https://github.com/edwardspec/mediawiki-aws-s3/tags
 ARG MEDIAWIKI_EMBED_VIDEO_VERSION=v4.0.0 # https://github.com/StarCitizenWiki/mediawiki-extensions-EmbedVideo/releases
