@@ -3,11 +3,10 @@ ARG ZBASE_TAG=latest
 ### Additional setup for zbase dev
 FROM ghcr.io/zetaoss/zbase:${ZBASE_TAG}
 
-ARG VSCODE_VERSION=1.107.1 # https://github.com/microsoft/vscode/releases
+ARG VSCODE_VERSION=1.108.1 # https://github.com/microsoft/vscode/releases
 
 # https://hub.docker.com/_/composer/tags
-COPY --from=composer:2.9.2 /usr/bin/composer /usr/bin/composer
-COPY --from=fluent/fluent-bit:latest /fluent-bit/bin/fluent-bit /usr/local/bin/fluent-bit
+COPY --from=composer:2.9.3 /usr/bin/composer /usr/bin/composer
 
 RUN set -eux \
     && apt-get update && apt-get install -y --no-install-recommends \
@@ -40,6 +39,7 @@ RUN set -eux \
         evgenius33.laravel-pint-fixer \
         laravel.vscode-laravel \
         ms-vscode.makefile-tools \
+        openai.chatgpt \
         shufo.vscode-blade-formatter \
         vitest.explorer \
         vue.volar; do \
