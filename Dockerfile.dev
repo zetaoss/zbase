@@ -1,9 +1,13 @@
-ARG ZBASE_TAG=latest
+ARG ZBASE_VERSION=latest
 
 ### Additional setup for zbase dev
-FROM ghcr.io/zetaoss/zbase:${ZBASE_TAG}
+FROM ghcr.io/zetaoss/zbase:${ZBASE_VERSION}
 
-ARG VSCODE_VERSION=1.108.1 # https://github.com/microsoft/vscode/releases
+ARG ZBASE_VERSION
+ENV ZBASE_VERSION=${ZBASE_VERSION}
+
+# https://github.com/microsoft/vscode/releases
+ENV VSCODE_VERSION=1.108.1 
 
 # https://hub.docker.com/_/composer/tags
 COPY --from=composer:2.9.3 /usr/bin/composer /usr/bin/composer
