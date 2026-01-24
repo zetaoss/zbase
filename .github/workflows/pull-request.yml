@@ -2,6 +2,7 @@ name: pull-request
 on:
   pull_request:
     types: [opened, reopened, synchronize]
+  workflow_dispatch:
 
 jobs:
   docker-build:
@@ -9,6 +10,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
@@ -19,9 +27,11 @@ jobs:
         with:
           context: .
           file: Dockerfile
-          push: false
-          tags: ghcr.io/zetaoss/zbase:latest
+          push: true
+          tags: ghcr.io/zetaoss/zbase:rc
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha,scope=zbase
+          cache-to: type=gha,mode=max,scope=zbase
 
       - name: Build (zbase-dev)
         uses: docker/build-push-action@v6
@@ -30,6 +40,8 @@ jobs:
           file: Dockerfile.dev
           push: false
           build-args: |
-            ZBASE_VERSION=latest
-          tags: ghcr.io/zetaoss/zbase-dev:latest
+            ZBASE_VERSION=rc
+          tags: ghcr.io/zetaoss/zbase-dev:rc
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha,scope=zbase-dev
+          cache-to: type=gha,mode=max,scope=zbase-dev

@@ -1,16 +1,12 @@
 # https://hub.docker.com/_/mediawiki
 FROM mediawiki:1.43.6-fpm
 
-# https://nodejs.org/en/download LTS for linux using nvm
-ARG NVM_VERSION=v0.40.3
-ARG NODE_MAJOR_VERSION=24
-
 # Extensions
 # https://github.com/edwardspec/mediawiki-aws-s3/tags
 ARG AWS_S3_VERSION=v0.13.1
-# https://github.com/StarCitizenWiki/mediawiki-extensions-EmbedVideo/releases
+# https://github.com/StarCitizenWiki/mediawiki-extensions-EmbedVideo/tags
 ARG EMBED_VIDEO_VERSION=v4.0.0
-# https://github.com/jmnote/SimpleMathJax
+# https://github.com/jmnote/SimpleMathJax/tags
 ARG SIMPLE_MATH_JAX_VERSION=v0.8.10
 
 SHELL ["/bin/bash", "-lc"]
@@ -30,13 +26,6 @@ RUN set -eux \
         redis \
         wikidiff2 \
         zip \
-    ## nvm / node / pnpm
-    && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/${NVM_VERSION}/install.sh | bash \
-    && source "$HOME/.nvm/nvm.sh" \
-    && nvm install ${NODE_MAJOR_VERSION} \
-    && node -v \
-    && corepack enable pnpm \
-    && pnpm -v \
     ## mediawiki extensions
     && cd /var/www/html/extensions/ \
     && MEDIAWIKI_BRANCH="REL$(printf '%s' "$MEDIAWIKI_MAJOR_VERSION" | tr '.' '_')" \
