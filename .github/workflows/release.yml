@@ -44,6 +44,8 @@ jobs:
           push: true
           tags: ${{ steps.meta_zbase.outputs.tags }}
           labels: ${{ steps.meta_zbase.outputs.labels }}
+          cache-from: type=gha,scope=zbase
+          cache-to: type=gha,mode=max,scope=zbase
 
       - name: Build (zbase-dev)
         uses: docker/build-push-action@v6
@@ -55,3 +57,5 @@ jobs:
             ZBASE_VERSION=${{ github.ref_name }}
           tags: ${{ steps.meta_zbase_dev.outputs.tags }}
           labels: ${{ steps.meta_zbase_dev.outputs.labels }}
+          cache-from: type=gha,scope=zbase-dev
+          cache-to: type=gha,mode=max,scope=zbase-dev
