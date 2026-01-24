@@ -11,7 +11,10 @@ ARG NVM_VERSION=v0.40.3
 ARG NODE_MAJOR_VERSION=24
 
 # https://github.com/microsoft/vscode/releases
-ENV VSCODE_VERSION=1.108.1 
+ARG VSCODE_VERSION=1.108.1
+
+# https://github.com/kardolus/chatgpt-cli/releases
+ARG CHATGPT_CLI_VERSION
 
 # https://hub.docker.com/_/composer/tags
 COPY --from=composer:2.9.3 /usr/bin/composer /usr/bin/composer
@@ -37,10 +40,9 @@ RUN set -eux \
     && node -v \
     && corepack enable pnpm \
     && pnpm -v \
-    && pnpm install -g \
-        @google/gemini-cli@0.4.0 \
+    && pnpm add -D @google/gemini-cli@0.4.0 \
     && pnpm cache clean --force \
-    && curl -L -o chatgpt https://github.com/kardolus/chatgpt-cli/releases/latest/download/chatgpt-linux-amd64 && chmod +x chatgpt && mv chatgpt /usr/local/bin/ \
+    && curl -L -o chatgpt https://github.com/kardolus/chatgpt-cli/releases/download/${CHATGPT_CLI_VERSION}/chatgpt-linux-amd64 && chmod +x chatgpt && mv chatgpt /usr/local/bin/ \
     && rm -rf /tmp/pear/
 
 RUN set -eux \
