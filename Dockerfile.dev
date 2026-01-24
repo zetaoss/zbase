@@ -38,6 +38,7 @@ RUN set -eux \
     && rm -f vscode-server.tar.gz \
     && for extension in \
         bradlc.vscode-tailwindcss \
+        dawhite.mustache \
         dbaeumer.vscode-eslint \
         editorconfig.editorconfig \
         evgenius33.laravel-pint-fixer \
