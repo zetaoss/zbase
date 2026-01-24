@@ -10,11 +10,12 @@ ENV ZBASE_VERSION=${ZBASE_VERSION}
 ARG NVM_VERSION=v0.40.3
 ARG NODE_MAJOR_VERSION=24
 
-# https://github.com/microsoft/vscode/releases
+# https://github.com/kardolus/chatgpt-cli
+ARG CHATGPT_CLI_VERSION=v1.10.9
+# https://github.com/google-gemini/gemini-cli
+ARG GEMINI_CLI_VERSION=v0.25.2
+# https://github.com/microsoft/vscode/tags
 ARG VSCODE_VERSION=1.108.1
-
-# https://github.com/kardolus/chatgpt-cli/releases
-ARG CHATGPT_CLI_VERSION
 
 # https://hub.docker.com/_/composer/tags
 COPY --from=composer:2.9.3 /usr/bin/composer /usr/bin/composer
@@ -40,7 +41,7 @@ RUN set -eux \
     && node -v \
     && corepack enable pnpm \
     && pnpm -v \
-    && pnpm add -D @google/gemini-cli@0.4.0 \
+    && pnpm add -D @google/gemini-cli@${GEMINI_CLI_VERSION} \
     && pnpm cache clean --force \
     && curl -L -o chatgpt https://github.com/kardolus/chatgpt-cli/releases/download/${CHATGPT_CLI_VERSION}/chatgpt-linux-amd64 && chmod +x chatgpt && mv chatgpt /usr/local/bin/ \
     && rm -rf /tmp/pear/
