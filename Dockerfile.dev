@@ -10,9 +10,9 @@ ENV ZBASE_VERSION=${ZBASE_VERSION}
 ARG NVM_VERSION=v0.40.3
 ARG NODE_MAJOR_VERSION=24
 
-# https://github.com/kardolus/chatgpt-cli
+# https://github.com/kardolus/chatgpt-cli/tags
 ARG CHATGPT_CLI_VERSION=v1.10.9
-# https://github.com/google-gemini/gemini-cli
+# https://github.com/google-gemini/gemini-cli/tags
 ARG GEMINI_CLI_VERSION=v0.25.2
 # https://github.com/microsoft/vscode/tags
 ARG VSCODE_VERSION=1.108.1
@@ -42,7 +42,7 @@ RUN set -eux \
     && corepack enable pnpm \
     && pnpm -v \
     && pnpm add -D @google/gemini-cli@${GEMINI_CLI_VERSION} \
-    && pnpm cache clean --force \
+    && pnpm cache clean \
     && curl -L -o chatgpt https://github.com/kardolus/chatgpt-cli/releases/download/${CHATGPT_CLI_VERSION}/chatgpt-linux-amd64 && chmod +x chatgpt && mv chatgpt /usr/local/bin/ \
     && rm -rf /tmp/pear/
 

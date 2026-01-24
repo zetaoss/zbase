@@ -4,9 +4,9 @@ FROM mediawiki:1.43.6-fpm
 # Extensions
 # https://github.com/edwardspec/mediawiki-aws-s3/tags
 ARG AWS_S3_VERSION=v0.13.1
-# https://github.com/StarCitizenWiki/mediawiki-extensions-EmbedVideo/releases
+# https://github.com/StarCitizenWiki/mediawiki-extensions-EmbedVideo/tags
 ARG EMBED_VIDEO_VERSION=v4.0.0
-# https://github.com/jmnote/SimpleMathJax
+# https://github.com/jmnote/SimpleMathJax/tags
 ARG SIMPLE_MATH_JAX_VERSION=v0.8.10
 
 SHELL ["/bin/bash", "-lc"]
