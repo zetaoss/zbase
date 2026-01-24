@@ -24,7 +24,8 @@ RUN set -eux \
         tini \
         unzip \
     && rm -rf /var/lib/apt/lists/* \
-    && apt-get update \
+    && npm install -g @google/gemini-cli \
+    && curl -L -o chatgpt https://github.com/kardolus/chatgpt-cli/releases/latest/download/chatgpt-linux-amd64 && chmod +x chatgpt && sudo mv chatgpt /usr/local/bin/ \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
     && rm -rf /tmp/pear/
