@@ -41,7 +41,7 @@ RUN set -eux \
     && node -v \
     && corepack enable pnpm \
     && pnpm -v \
-    && pnpm add -D @google/gemini-cli@${GEMINI_CLI_VERSION} \
+    && PNPM_HOME=/usr/local/bin pnpm add -g @google/gemini-cli@${GEMINI_CLI_VERSION} \
     && pnpm cache clean \
     && curl -L -o chatgpt https://github.com/kardolus/chatgpt-cli/releases/download/${CHATGPT_CLI_VERSION}/chatgpt-linux-amd64 && chmod +x chatgpt && mv chatgpt /usr/local/bin/ \
     && rm -rf /tmp/pear/
