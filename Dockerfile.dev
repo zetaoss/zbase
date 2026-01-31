@@ -19,15 +19,15 @@ ARG VSCODE_VERSION=1.108.1
 
 RUN set -eux \
     && apt-get update && apt-get install -y --no-install-recommends \
-        inotify-tools \
-        jq \
-        mariadb-client \
-        procps \
-        psmisc \
-        redis-tools \
-        supervisor \
-        tini \
-        unzip \
+    inotify-tools \
+    jq \
+    mariadb-client \
+    procps \
+    psmisc \
+    redis-tools \
+    supervisor \
+    tini \
+    unzip \
     && rm -rf /var/lib/apt/lists/* \
     && pecl install xdebug \
     && docker-php-ext-enable xdebug \
@@ -51,20 +51,21 @@ RUN set -eux \
     && tar -xz -C "${VSCODE_SERVER_DIR}/bin/${SHA}" --strip-components=1 -f vscode-server.tar.gz \
     && rm -f vscode-server.tar.gz \
     && for extension in \
-        bradlc.vscode-tailwindcss \
-        dawhite.mustache \
-        dbaeumer.vscode-eslint \
-        editorconfig.editorconfig \
-        esbenp.prettier-vscode \
-        evgenius33.laravel-pint-fixer \
-        laravel.vscode-laravel \
-        ms-azuretools.vscode-containers \
-        ms-vscode.makefile-tools \
-        openai.chatgpt \
-        shufo.vscode-blade-formatter \
-        vitest.explorer \
-        vue.volar; do \
-        "${VSCODE_SERVER_DIR}/bin/${SHA}/bin/code-server" --install-extension "${extension}"; \
+    bradlc.vscode-tailwindcss \
+    dawhite.mustache \
+    dbaeumer.vscode-eslint \
+    editorconfig.editorconfig \
+    esbenp.prettier-vscode \
+    evgenius33.laravel-pint-fixer \
+    laravel.vscode-laravel \
+    ms-azuretools.vscode-containers \
+    ms-vscode.makefile-tools \
+    openai.chatgpt \
+    shufo.vscode-blade-formatter \
+    vitest.explorer \
+    vue.volar \
+    ; do \
+    "${VSCODE_SERVER_DIR}/bin/${SHA}/bin/code-server" --install-extension "${extension}"; \
     done
 
 RUN set -eux \
@@ -75,8 +76,8 @@ RUN set -eux \
     && cp -a  /app/w/composer.local.json-sample /app/w/composer.local.json \
     && ln -rs /app/mwz/extensions/ZetaExtension /app/w/extensions/ \
     && ln -rs /app/mwz/skins/ZetaSkin           /app/w/skins/ \
-    && cd /app/laravel/              && composer install --no-interaction --prefer-dist \
-    && cd /app/w/                    && composer update  --no-interaction --prefer-dist \
+    && cd /app/laravel/ && composer install --no-dev --optimize-autoloader \
+    && cd /app/w/       && composer install --no-dev --optimize-autoloader --no-security-blocking \
     && cd /app/vue/                  && pnpm install \
     && cd /app/w/skins/ZetaSkin/vue/ && pnpm install && pnpm run build \
     && chown www-data:www-data -R /app/*
