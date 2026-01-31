@@ -17,9 +17,6 @@ ARG GEMINI_CLI_VERSION=v0.25.2
 # https://github.com/microsoft/vscode/tags
 ARG VSCODE_VERSION=1.108.1
 
-# https://hub.docker.com/_/composer/tags
-COPY --from=composer:2.9.3 /usr/bin/composer /usr/bin/composer
-
 RUN set -eux \
     && apt-get update && apt-get install -y --no-install-recommends \
         inotify-tools \
