@@ -58,6 +58,7 @@ RUN set -eux \
         dawhite.mustache \
         dbaeumer.vscode-eslint \
         editorconfig.editorconfig \
+        esbenp.prettier-vscode \
         evgenius33.laravel-pint-fixer \
         laravel.vscode-laravel \
         ms-azuretools.vscode-containers \
