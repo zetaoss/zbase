@@ -9,6 +9,9 @@ ARG EMBED_VIDEO_VERSION=v4.0.0
 # https://github.com/jmnote/SimpleMathJax/tags
 ARG SIMPLE_MATH_JAX_VERSION=v0.8.10
 
+# https://hub.docker.com/_/composer/tags
+COPY --from=composer:2.9.5 /usr/bin/composer /usr/bin/composer
+
 SHELL ["/bin/bash", "-lc"]
 
 RUN set -eux \
