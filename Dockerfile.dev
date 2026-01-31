@@ -72,8 +72,8 @@ RUN set -eux \
     && cd / \
     && git clone https://github.com/zetaoss/zengine.git app \
     && cd /app/ \
-    && cp -a  /var/www/html                     /app/w \
-    && cp -a  /app/w/composer.local.json-sample /app/w/composer.local.json \
+    && mv     /var/www/html                     /app/w \
+    && mv     /app/w/composer.local.json-sample /app/w/composer.local.json \
     && ln -rs /app/mwz/extensions/ZetaExtension /app/w/extensions/ \
     && ln -rs /app/mwz/skins/ZetaSkin           /app/w/skins/ \
     && cd /app/laravel/ && composer install --no-dev --optimize-autoloader \
