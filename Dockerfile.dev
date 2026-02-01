@@ -73,11 +73,9 @@ RUN set -eux \
     && git clone https://github.com/zetaoss/zengine.git app \
     && cd /app/ \
     && mv     /var/www/html                     /app/w \
-    && mv     /app/w/composer.local.json-sample /app/w/composer.local.json \
     && ln -rs /app/mwz/extensions/ZetaExtension /app/w/extensions/ \
     && ln -rs /app/mwz/skins/ZetaSkin           /app/w/skins/ \
-    && cd /app/laravel/ && composer install --no-dev --optimize-autoloader \
-    && cd /app/w/       && composer install --no-dev --optimize-autoloader --no-security-blocking \
+    && cd /app/laravel/ && composer install --no-dev -o \
     && cd /app/vue/                  && pnpm install \
     && cd /app/w/skins/ZetaSkin/vue/ && pnpm install && pnpm run build \
     && chown www-data:www-data -R /app/*
