@@ -49,6 +49,7 @@ RUN set -eux \
     && git clone --depth=1 -b $EMBED_VIDEO_VERSION     https://github.com/StarCitizenWiki/mediawiki-extensions-EmbedVideo.git EmbedVideo \
     && git clone --depth=1 -b $SIMPLE_MATH_JAX_VERSION https://github.com/jmnote/SimpleMathJax.git                            SimpleMathJax \
     ## https://maps.extension.wiki/wiki/Installation
+    && cd /var/www/html/ \
     && mv composer.local.json-sample composer.local.json \
     && COMPOSER=composer.local.json composer require --no-update mediawiki/maps:~12.0 \
     && composer update mediawiki/maps --no-dev -o \
