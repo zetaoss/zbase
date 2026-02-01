@@ -76,7 +76,6 @@ RUN set -eux \
     && ln -rs /app/mwz/extensions/ZetaExtension /app/w/extensions/ \
     && ln -rs /app/mwz/skins/ZetaSkin           /app/w/skins/ \
     && cd /app/laravel/ && composer install --no-dev -o \
-    && cd /app/w/       && composer update  --no-dev -o --no-scripts --no-security-blocking \
     && cd /app/vue/                  && pnpm install \
     && cd /app/w/skins/ZetaSkin/vue/ && pnpm install && pnpm run build \
     && chown www-data:www-data -R /app/*
