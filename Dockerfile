@@ -51,7 +51,7 @@ RUN set -eux \
     ## https://maps.extension.wiki/wiki/Installation
     && cd /var/www/html/ \
     && cp composer.local.json-sample composer.local.json \
-    && COMPOSER=composer.local.json composer update --no-dev -o \
-    && COMPOSER=composer.local.json composer require --no-update mediawiki/maps:~12.0 \
+    && composer update --no-dev -o \
+    && composer require --no-update mediawiki/maps:~12.0 \
     && composer update mediawiki/maps --no-dev -o \
     && echo done
