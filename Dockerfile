@@ -1,9 +1,6 @@
 # https://hub.docker.com/_/mediawiki
 FROM mediawiki:1.43.6-fpm
 
-# https://hub.docker.com/_/composer/tags
-ARG COMPOSER_VERSION=2.9.5
-
 # Extensions
 # https://github.com/edwardspec/mediawiki-aws-s3/tags
 ARG AWS_S3_VERSION=v0.13.1
@@ -11,6 +8,9 @@ ARG AWS_S3_VERSION=v0.13.1
 ARG EMBED_VIDEO_VERSION=v4.0.0
 # https://github.com/jmnote/SimpleMathJax/tags
 ARG SIMPLE_MATH_JAX_VERSION=v0.8.10
+
+# https://hub.docker.com/_/composer/tags
+COPY --from=composer:2.9.5 /usr/bin/composer /usr/bin/composer
 
 SHELL ["/bin/bash", "-lc"]
 
@@ -50,7 +50,6 @@ RUN set -eux \
     && git clone --depth=1 -b $SIMPLE_MATH_JAX_VERSION https://github.com/jmnote/SimpleMathJax.git                            SimpleMathJax \
     && echo done
 
-COPY --from=composer:$COMPOSER_VERSION /usr/bin/composer /usr/bin/composer
 RUN set -eux \
     && cd /var/www/html/ \
     && cp composer.local.json-sample composer.local.json \
