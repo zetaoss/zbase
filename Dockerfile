@@ -17,18 +17,18 @@ SHELL ["/bin/bash", "-lc"]
 RUN set -eux \
     ## system packages
     && apt-get update && apt-get install -y --no-install-recommends \
-        libzip-dev \
-        nginx \
+    libzip-dev \
+    nginx \
     && rm -rf /var/lib/apt/lists/* \
     ## php extensions
     && curl -fsSL https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions -o /usr/local/bin/install-php-extensions \
     && chmod +x /usr/local/bin/install-php-extensions \
     && install-php-extensions \
-        pdo_mysql \
-        pcntl \
-        redis \
-        wikidiff2 \
-        zip \
+    pdo_mysql \
+    pcntl \
+    redis \
+    wikidiff2 \
+    zip \
     ## mediawiki extensions
     && cd /var/www/html/extensions/ \
     && MEDIAWIKI_BRANCH="REL$(printf '%s' "$MEDIAWIKI_MAJOR_VERSION" | tr '.' '_')" \
@@ -48,4 +48,8 @@ RUN set -eux \
     && git clone --depth=1 -b $AWS_S3_VERSION          https://github.com/edwardspec/mediawiki-aws-s3.git                     AWS \
     && git clone --depth=1 -b $EMBED_VIDEO_VERSION     https://github.com/StarCitizenWiki/mediawiki-extensions-EmbedVideo.git EmbedVideo \
     && git clone --depth=1 -b $SIMPLE_MATH_JAX_VERSION https://github.com/jmnote/SimpleMathJax.git                            SimpleMathJax \
+    ## https://maps.extension.wiki/wiki/Installation
+    && mv composer.local.json-sample composer.local.json \
+    && COMPOSER=composer.local.json composer require --no-update mediawiki/maps:~12.0 \
+    && composer update mediawiki/maps --no-dev -o \
     && echo done
