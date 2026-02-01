@@ -48,9 +48,13 @@ RUN set -eux \
     && git clone --depth=1 -b $AWS_S3_VERSION          https://github.com/edwardspec/mediawiki-aws-s3.git                     AWS \
     && git clone --depth=1 -b $EMBED_VIDEO_VERSION     https://github.com/StarCitizenWiki/mediawiki-extensions-EmbedVideo.git EmbedVideo \
     && git clone --depth=1 -b $SIMPLE_MATH_JAX_VERSION https://github.com/jmnote/SimpleMathJax.git                            SimpleMathJax \
-    ## https://maps.extension.wiki/wiki/Installation
+    && echo done
+
+RUN set -eux \
     && cd /var/www/html/ \
     && cp composer.local.json-sample composer.local.json \
+    && composer update --no-dev -o --no-scripts --no-security-blocking \
+    && COMPOSER=composer.local.json composer require --no-update mediawiki/maps:~12.0 \
     && composer require --no-update mediawiki/maps:~12.0 \
     && composer update mediawiki/maps --no-dev -o \
     && echo done
