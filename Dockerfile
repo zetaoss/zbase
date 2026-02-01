@@ -53,9 +53,7 @@ RUN set -eux \
 RUN set -eux \
     && cd /var/www/html/ \
     && cp composer.local.json-sample composer.local.json \
-    && chmod 664 *.json \
     && composer update --no-dev -o --no-scripts --no-security-blocking \
     && COMPOSER=composer.local.json composer require --no-update mediawiki/maps:~12.0 \
-    && composer require --no-update mediawiki/maps:~12.0 \
     && composer update mediawiki/maps --no-dev -o \
     && echo done
