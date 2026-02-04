@@ -8,7 +8,7 @@ ARG AWS_S3_VERSION=v0.13.1
 # https://github.com/StarCitizenWiki/mediawiki-extensions-EmbedVideo/tags
 ARG EMBED_VIDEO_VERSION=v4.0.0
 # https://github.com/jmnote/NewArticleTemplates/tags
-ARG NEW_ARTICLE_TEMPLATES_VERSION=v1.4.1
+ARG NEW_ARTICLE_TEMPLATES_VERSION=v1.4.2
 # https://github.com/jmnote/SimpleMathJax/tags
 ARG SIMPLE_MATH_JAX_VERSION=v0.8.10
 
