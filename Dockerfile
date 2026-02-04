@@ -53,6 +53,7 @@ RUN set -eux \
 
 RUN set -eux \
     ## mediawiki extensions extra
+    && cd /var/www/html/extensions/ \
     && git clone --depth=1 -b $AWS_S3_VERSION                https://github.com/edwardspec/mediawiki-aws-s3.git                     AWS \
     && git clone --depth=1 -b $EMBED_VIDEO_VERSION           https://github.com/StarCitizenWiki/mediawiki-extensions-EmbedVideo.git EmbedVideo \
     && git clone --depth=1 -b $NEW_ARTICLE_TEMPLATES_VERSION https://github.com/jmnote/NewArticleTemplates.git                      NewArticleTemplates \
