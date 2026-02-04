@@ -32,6 +32,9 @@ RUN set -eux \
     redis \
     wikidiff2 \
     zip \
+    && echo done
+
+RUN set -eux \
     ## mediawiki extensions
     && cd /var/www/html/extensions/ \
     && git clone --depth=1 -b $MEDIAWIKI_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/AntiSpoof.git \
@@ -46,7 +49,10 @@ RUN set -eux \
     && git clone --depth=1 -b $MEDIAWIKI_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/UserMerge.git \
     && git clone --depth=1 -b $MEDIAWIKI_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/Widgets.git \
     && git clone --depth=1 -b $MEDIAWIKI_BRANCH https://gerrit.wikimedia.org/r/mediawiki/extensions/Wikibase.git \
-    ##
+    && echo done
+
+RUN set -eux \
+    ## mediawiki extensions extra
     && git clone --depth=1 -b $AWS_S3_VERSION                https://github.com/edwardspec/mediawiki-aws-s3.git                     AWS \
     && git clone --depth=1 -b $EMBED_VIDEO_VERSION           https://github.com/StarCitizenWiki/mediawiki-extensions-EmbedVideo.git EmbedVideo \
     && git clone --depth=1 -b $NEW_ARTICLE_TEMPLATES_VERSION https://github.com/jmnote/NewArticleTemplates.git                      NewArticleTemplates \
