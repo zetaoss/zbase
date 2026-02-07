@@ -9,6 +9,8 @@ ARG AWS_S3_VERSION=v0.13.1
 ARG EMBED_VIDEO_VERSION=v4.0.0
 # https://github.com/jmnote/NewArticleTemplates/tags
 ARG NEW_ARTICLE_TEMPLATES_VERSION=v1.4.2
+# https://github.com/jmnote/Resend/tags
+ARG RESEND_VERSION=v0.1.1
 # https://github.com/jmnote/SimpleMathJax/tags
 ARG SIMPLE_MATH_JAX_VERSION=v0.8.10
 
@@ -57,6 +59,7 @@ RUN set -eux \
     && git clone --depth=1 -b $AWS_S3_VERSION                https://github.com/edwardspec/mediawiki-aws-s3.git                     AWS \
     && git clone --depth=1 -b $EMBED_VIDEO_VERSION           https://github.com/StarCitizenWiki/mediawiki-extensions-EmbedVideo.git EmbedVideo \
     && git clone --depth=1 -b $NEW_ARTICLE_TEMPLATES_VERSION https://github.com/jmnote/NewArticleTemplates.git                      NewArticleTemplates \
+    && git clone --depth=1 -b $RESEND_VERSION                https://github.com/jmnote/Resend.git                                   Resend \
     && git clone --depth=1 -b $SIMPLE_MATH_JAX_VERSION       https://github.com/jmnote/SimpleMathJax.git                            SimpleMathJax \
     && echo done
 
