@@ -61,9 +61,8 @@ RUN set -eux \
     ms-azuretools.vscode-containers \
     ms-vscode.makefile-tools \
     openai.chatgpt \
-    shufo.vscode-blade-formatter \
+    svelte.svelte-vscode \
     vitest.explorer \
-    vue.volar \
     ; do \
     "${VSCODE_SERVER_DIR}/bin/${SHA}/bin/code-server" --install-extension "${extension}"; \
     done
