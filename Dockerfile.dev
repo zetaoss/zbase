@@ -25,6 +25,7 @@ RUN set -eux \
     procps \
     psmisc \
     redis-tools \
+    ripgrep \
     supervisor \
     tini \
     unzip \
