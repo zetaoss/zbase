@@ -9,8 +9,6 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: docker/setup-buildx-action@v3
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -18,44 +16,18 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Metadata (zbase)
+      - name: Metadata
         uses: docker/metadata-action@v5
-        id: meta_zbase
+        id: meta
         with:
           images: |
             ghcr.io/zetaoss/zbase
           tags: |
             type=ref,event=tag
 
-      - name: Metadata (zbase-dev)
-        uses: docker/metadata-action@v5
-        id: meta_zbase_dev
-        with:
-          images: |
-            ghcr.io/zetaoss/zbase-dev
-          tags: |
-            type=ref,event=tag
-
-      - name: Build (zbase)
+      - name: Build
         uses: docker/build-push-action@v6
         with:
-          context: .
-          file: Dockerfile
           push: true
-          tags: ${{ steps.meta_zbase.outputs.tags }}
-          labels: ${{ steps.meta_zbase.outputs.labels }}
-          cache-from: type=gha,scope=zbase
-          cache-to: type=gha,mode=max,scope=zbase
-
-      - name: Build (zbase-dev)
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: Dockerfile.dev
-          push: true
-          build-args: |
-            ZBASE_VERSION=${{ github.ref_name }}
-          tags: ${{ steps.meta_zbase_dev.outputs.tags }}
-          labels: ${{ steps.meta_zbase_dev.outputs.labels }}
-          cache-from: type=gha,scope=zbase-dev
-          cache-to: type=gha,mode=max,scope=zbase-dev
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
