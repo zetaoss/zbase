@@ -13,6 +13,8 @@ ARG NEW_ARTICLE_TEMPLATES_VERSION=v1.4.2
 ARG RESEND_VERSION=v0.1.1
 # https://github.com/jmnote/SimpleMathJax/tags
 ARG SIMPLE_MATH_JAX_VERSION=v0.8.10
+# https://github.com/jmnote/SimpleMermaid/tags
+ARG SIMPLE_MERMAID_VERSION=v0.1.0
 
 # https://hub.docker.com/_/composer/tags
 COPY --from=composer:2.9.5 /usr/bin/composer /usr/bin/composer
@@ -60,6 +62,7 @@ RUN set -eux \
     && git clone --depth=1 -b $NEW_ARTICLE_TEMPLATES_VERSION https://github.com/jmnote/NewArticleTemplates.git                      NewArticleTemplates \
     && git clone --depth=1 -b $RESEND_VERSION                https://github.com/jmnote/Resend.git                                   Resend \
     && git clone --depth=1 -b $SIMPLE_MATH_JAX_VERSION       https://github.com/jmnote/SimpleMathJax.git                            SimpleMathJax \
+    && git clone --depth=1 -b $SIMPLE_MERMAID_VERSION        https://github.com/jmnote/SimpleMermaid.git                            SimpleMermaid \
     && echo done
 
 RUN set -eux \
