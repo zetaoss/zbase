@@ -14,7 +14,7 @@ ARG RESEND_VERSION=v0.1.1
 # https://github.com/jmnote/SimpleMathJax/tags
 ARG SIMPLE_MATH_JAX_VERSION=v0.8.10
 # https://github.com/jmnote/SimpleMermaid/tags
-ARG SIMPLE_MERMAID_VERSION=v0.1.0
+ARG SIMPLE_MERMAID_VERSION=v0.1.1
 
 # https://hub.docker.com/_/composer/tags
 COPY --from=composer:2.9.5 /usr/bin/composer /usr/bin/composer
