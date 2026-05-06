@@ -1,10 +1,10 @@
 # https://hub.docker.com/_/mediawiki
-FROM mediawiki:1.43.6-fpm
+FROM mediawiki:1.43.8-fpm
 ENV MEDIAWIKI_BRANCH=REL1_43
 
 # Extensions
 # https://github.com/edwardspec/mediawiki-aws-s3/tags
-ARG AWS_S3_VERSION=v0.13.1
+ARG AWS_S3_VERSION=v0.14.0
 # https://github.com/StarCitizenWiki/mediawiki-extensions-EmbedVideo/tags
 ARG EMBED_VIDEO_VERSION=v4.0.0
 # https://github.com/jmnote/NewArticleTemplates/tags
@@ -12,9 +12,11 @@ ARG NEW_ARTICLE_TEMPLATES_VERSION=v1.4.2
 # https://github.com/jmnote/Resend/tags
 ARG RESEND_VERSION=v0.1.1
 # https://github.com/jmnote/SimpleMathJax/tags
-ARG SIMPLE_MATH_JAX_VERSION=v0.8.10
+ARG SIMPLE_MATH_JAX_VERSION=v0.8.11
 # https://github.com/jmnote/SimpleMermaid/tags
-ARG SIMPLE_MERMAID_VERSION=v0.1.1
+ARG SIMPLE_MERMAID_VERSION=v0.1.2
+# https://packagist.org/packages/mediawiki/maps
+ARG MEDIAWIKI_MAPS_VERSION=12.1.1
 
 # https://hub.docker.com/_/composer/tags
 COPY --from=composer:2.9.5 /usr/bin/composer /usr/bin/composer
@@ -69,6 +71,6 @@ RUN set -eux \
     && cd /var/www/html/ \
     && cp composer.local.json-sample composer.local.json \
     && composer update --no-dev -o --no-scripts --no-security-blocking \
-    && COMPOSER=composer.local.json composer require --no-update mediawiki/maps:~12.0 \
+    && COMPOSER=composer.local.json composer require --no-update mediawiki/maps:~$MEDIAWIKI_MAPS_VERSION \
     && composer update mediawiki/maps --no-dev -o \
     && echo done
