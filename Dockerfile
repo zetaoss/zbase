@@ -15,10 +15,9 @@ ARG RESEND_VERSION=v0.1.1
 ARG SIMPLE_MATH_JAX_VERSION=v0.8.11
 # https://github.com/jmnote/SimpleMermaid/tags
 ARG SIMPLE_MERMAID_VERSION=v0.1.2
-# https://packagist.org/packages/mediawiki/maps
 
 # https://hub.docker.com/_/composer/tags
-COPY --from=composer:2.9.5 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.9.7 /usr/bin/composer /usr/bin/composer
 
 SHELL ["/bin/bash", "-lc"]
 
@@ -66,10 +65,8 @@ RUN set -eux \
     && git clone --depth=1 -b $SIMPLE_MERMAID_VERSION        https://github.com/jmnote/SimpleMermaid.git                            SimpleMermaid \
     && echo done
 
+COPY composer.maps.json /var/www/html/composer.maps.json
 RUN set -eux \
     && cd /var/www/html/ \
-    && cp composer.local.json-sample composer.local.json \
-    && composer update --no-dev -o --no-scripts --no-security-blocking \
-    && COMPOSER=composer.local.json composer require --no-update mediawiki/maps:~12.0 \
-    && composer update mediawiki/maps --no-dev -o \
+    && COMPOSER=composer.maps.json composer update --no-dev -o --no-scripts --no-security-blocking \
     && echo done
