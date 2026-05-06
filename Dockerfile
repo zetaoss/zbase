@@ -16,7 +16,6 @@ ARG SIMPLE_MATH_JAX_VERSION=v0.8.11
 # https://github.com/jmnote/SimpleMermaid/tags
 ARG SIMPLE_MERMAID_VERSION=v0.1.2
 # https://packagist.org/packages/mediawiki/maps
-ARG MEDIAWIKI_MAPS_VERSION=12.1.1
 
 # https://hub.docker.com/_/composer/tags
 COPY --from=composer:2.9.5 /usr/bin/composer /usr/bin/composer
@@ -71,6 +70,6 @@ RUN set -eux \
     && cd /var/www/html/ \
     && cp composer.local.json-sample composer.local.json \
     && composer update --no-dev -o --no-scripts --no-security-blocking \
-    && COMPOSER=composer.local.json composer require --no-update mediawiki/maps:~$MEDIAWIKI_MAPS_VERSION \
+    && COMPOSER=composer.local.json composer require --no-update mediawiki/maps:~12.0 \
     && composer update mediawiki/maps --no-dev -o \
     && echo done
