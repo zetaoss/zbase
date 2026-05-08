@@ -17,10 +17,10 @@ concurrency:
 
 jobs:
   open-pr:
-    name: Open draft PR on push
+    name: Open PR on push
     runs-on: ubuntu-latest
     steps:
-      - name: Create draft PR if missing
+      - name: Create PR if missing
         uses: actions/github-script@v7
         with:
           script: |
@@ -68,11 +68,10 @@ jobs:
                 `- Triggered by: @${context.actor}`,
                 `- Commit: ${context.sha}`
               ].join('\n'),
-              draft: true,
               maintainer_can_modify: true
             });
 
-            core.info(`Created draft PR #${pr.data.number}`);
+            core.info(`Created PR #${pr.data.number}`);
 
             // Assign here because PRs created by GITHUB_TOKEN may not trigger downstream workflows.
             try {
