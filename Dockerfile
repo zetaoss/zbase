@@ -24,18 +24,18 @@ SHELL ["/bin/bash", "-lc"]
 RUN set -eux \
     ## system packages
     && apt-get update && apt-get install -y --no-install-recommends \
-    libzip-dev \
-    nginx \
+        libzip-dev \
+        nginx \
     && rm -rf /var/lib/apt/lists/* \
     ## php extensions
     && curl -fsSL https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions -o /usr/local/bin/install-php-extensions \
     && chmod +x /usr/local/bin/install-php-extensions \
     && install-php-extensions \
-    pdo_mysql \
-    pcntl \
-    redis \
-    wikidiff2 \
-    zip \
+        pdo_mysql \
+        pcntl \
+        redis \
+        wikidiff2 \
+        zip \
     && echo done
 
 RUN set -eux \
@@ -65,8 +65,8 @@ RUN set -eux \
     && git clone --depth=1 -b $SIMPLE_MERMAID_VERSION        https://github.com/jmnote/SimpleMermaid.git                            SimpleMermaid \
     && echo done
 
-COPY composer.maps.json /var/www/html/composer.maps.json
+COPY composer.extra.json /var/www/html/composer.extra.json
 RUN set -eux \
     && cd /var/www/html/ \
-    && COMPOSER=composer.maps.json composer update --no-dev -o --no-scripts --no-security-blocking \
+    && COMPOSER=composer.extra.json composer update --no-dev -o --no-scripts --no-security-blocking \
     && echo done
