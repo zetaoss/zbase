@@ -1,10 +1,10 @@
 # https://hub.docker.com/_/mediawiki
-FROM mediawiki:1.43.6-fpm
+FROM mediawiki:1.43.8-fpm
 ENV MEDIAWIKI_BRANCH=REL1_43
 
 # Extensions
 # https://github.com/edwardspec/mediawiki-aws-s3/tags
-ARG AWS_S3_VERSION=v0.13.1
+ARG AWS_S3_VERSION=v0.14.0
 # https://github.com/StarCitizenWiki/mediawiki-extensions-EmbedVideo/tags
 ARG EMBED_VIDEO_VERSION=v4.0.0
 # https://github.com/jmnote/NewArticleTemplates/tags
@@ -12,30 +12,30 @@ ARG NEW_ARTICLE_TEMPLATES_VERSION=v1.4.2
 # https://github.com/jmnote/Resend/tags
 ARG RESEND_VERSION=v0.1.1
 # https://github.com/jmnote/SimpleMathJax/tags
-ARG SIMPLE_MATH_JAX_VERSION=v0.8.10
+ARG SIMPLE_MATH_JAX_VERSION=v0.8.11
 # https://github.com/jmnote/SimpleMermaid/tags
-ARG SIMPLE_MERMAID_VERSION=v0.1.1
+ARG SIMPLE_MERMAID_VERSION=v0.1.2
 
 # https://hub.docker.com/_/composer/tags
-COPY --from=composer:2.9.5 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.9.7 /usr/bin/composer /usr/bin/composer
 
 SHELL ["/bin/bash", "-lc"]
 
 RUN set -eux \
     ## system packages
     && apt-get update && apt-get install -y --no-install-recommends \
-    libzip-dev \
-    nginx \
+        libzip-dev \
+        nginx \
     && rm -rf /var/lib/apt/lists/* \
     ## php extensions
     && curl -fsSL https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions -o /usr/local/bin/install-php-extensions \
     && chmod +x /usr/local/bin/install-php-extensions \
     && install-php-extensions \
-    pdo_mysql \
-    pcntl \
-    redis \
-    wikidiff2 \
-    zip \
+        pdo_mysql \
+        pcntl \
+        redis \
+        wikidiff2 \
+        zip \
     && echo done
 
 RUN set -eux \
@@ -65,10 +65,8 @@ RUN set -eux \
     && git clone --depth=1 -b $SIMPLE_MERMAID_VERSION        https://github.com/jmnote/SimpleMermaid.git                            SimpleMermaid \
     && echo done
 
+COPY composer.extra.json /var/www/html/composer.extra.json
 RUN set -eux \
     && cd /var/www/html/ \
-    && cp composer.local.json-sample composer.local.json \
-    && composer update --no-dev -o --no-scripts --no-security-blocking \
-    && COMPOSER=composer.local.json composer require --no-update mediawiki/maps:~12.0 \
-    && composer update mediawiki/maps --no-dev -o \
+    && COMPOSER=composer.extra.json composer update --no-dev -o --no-scripts --no-security-blocking \
     && echo done

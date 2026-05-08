@@ -1,36 +1,56 @@
-name: auto-assign
+name: Auto Assign
 
 on:
   issues:
-    types:
-      - opened
+    types: [opened, reopened]
   pull_request_target:
-    types:
-      - opened
+    types: [opened, reopened]
+  workflow_dispatch:
 
 permissions:
   issues: write
   pull-requests: write
 
+concurrency:
+  group: auto-assign-${{ github.event_name }}-${{ github.event.issue.number || github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: false
+
 jobs:
-  assign:
+  assign-author:
+    name: Assign author to issue/PR
     runs-on: ubuntu-latest
     steps:
-      - name: Assign jmnote
-        uses: actions/github-script@v8
+      - name: Assign author
+        uses: actions/github-script@v7
         with:
           script: |
-            const issueNumber =
-              context.payload.issue?.number ?? context.payload.pull_request?.number;
-
-            if (!issueNumber) {
-              core.info('Skip: no issue or pull request number found.');
+            // Skip bot actors.
+            if (context.actor.endsWith('[bot]')) {
+              core.info('Skipping auto-assign for bot actor.');
               return;
             }
 
-            await github.rest.issues.addAssignees({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issueNumber,
-              assignees: ['jmnote'],
-            });
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const issue_number = context.payload.issue?.number ?? context.payload.pull_request?.number;
+            const author = context.payload.issue?.user?.login
+              ?? context.payload.pull_request?.user?.login
+              ?? context.actor;
+
+            if (!issue_number) {
+              core.info('No issue/PR number found. Skip.');
+              return;
+            }
+
+            try {
+              await github.rest.issues.addAssignees({
+                owner,
+                repo,
+                issue_number,
+                assignees: [author]
+              });
+              core.info(`Assigned ${author} to #${issue_number}`);
+            } catch (error) {
+              // Keep this workflow non-blocking if assignment is not allowed.
+              core.warning(`Unable to assign ${author} to #${issue_number}: ${error.message}`);
+            }
