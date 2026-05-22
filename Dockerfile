@@ -66,4 +66,7 @@ RUN set -eux \
     && git clone --depth=1 -b $RESEND_VERSION                https://github.com/jmnote/Resend.git                                   Resend \
     && git clone --depth=1 -b $SIMPLE_MATH_JAX_VERSION       https://github.com/jmnote/SimpleMathJax.git                            SimpleMathJax \
     && git clone --depth=1 -b $SIMPLE_MERMAID_VERSION        https://github.com/jmnote/SimpleMermaid.git                            SimpleMermaid \
+    && cd /var/www/html/ \
+    && cp composer.local.json-sample composer.local.json \
+    && composer update --no-dev --no-scripts --optimize-autoloader \
     && echo done
