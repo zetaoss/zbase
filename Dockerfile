@@ -68,5 +68,5 @@ RUN set -eux \
     && git clone --depth=1 -b $SIMPLE_MERMAID_VERSION        https://github.com/jmnote/SimpleMermaid.git                            SimpleMermaid \
     && cd /var/www/html/ \
     && cp composer.local.json-sample composer.local.json \
-    && composer update --no-dev --no-scripts --optimize-autoloader \
+    && composer update --no-scripts --optimize-autoloader \
     && echo done
