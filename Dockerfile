@@ -67,3 +67,11 @@ RUN set -eux \
     && git clone --depth=1 -b $SIMPLE_MATH_JAX_VERSION       https://github.com/jmnote/SimpleMathJax.git                            SimpleMathJax \
     && git clone --depth=1 -b $SIMPLE_MERMAID_VERSION        https://github.com/jmnote/SimpleMermaid.git                            SimpleMermaid \
     && echo done
+
+RUN set -eux \
+    && cd /var/www/html/ \
+    && cp composer.local.json-sample composer.local.json \
+    ## workaround: align css-sanitizer with TemplateStyles on REL1_43
+    && sed -i 's|"wikimedia/css-sanitizer": "[^"]*"|"wikimedia/css-sanitizer": "^6.0"|' composer.json \
+    && composer update --no-dev --no-scripts --optimize-autoloader \
+    && echo done
