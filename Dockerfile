@@ -12,7 +12,7 @@ ARG NEW_ARTICLE_TEMPLATES_VERSION=v1.4.2
 # https://github.com/jmnote/Resend/tags
 ARG RESEND_VERSION=v0.1.1
 # https://github.com/jmnote/SimpleMaps/tags
-ARG SIMPLE_MAPS_VERSION=v0.2.0
+ARG SIMPLE_MAPS_VERSION=v0.2.1
 # https://github.com/jmnote/SimpleMathJax/tags
 ARG SIMPLE_MATH_JAX_VERSION=v0.8.11
 # https://github.com/jmnote/SimpleMermaid/tags
