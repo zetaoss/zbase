@@ -7,12 +7,12 @@ ENV MEDIAWIKI_BRANCH=REL1_43
 ARG AWS_S3_VERSION=v0.14.0
 # https://github.com/StarCitizenWiki/mediawiki-extensions-EmbedVideo/tags
 ARG EMBED_VIDEO_VERSION=v4.0.0
-# https://github.com/jmnote/DisplayMap/tags
-ARG DISPLAY_MAP_VERSION=v0.1.0
 # https://github.com/jmnote/NewArticleTemplates/tags
 ARG NEW_ARTICLE_TEMPLATES_VERSION=v1.4.2
 # https://github.com/jmnote/Resend/tags
 ARG RESEND_VERSION=v0.1.1
+# https://github.com/jmnote/SimpleMaps/tags
+ARG SIMPLE_MAPS_VERSION=v0.2.0
 # https://github.com/jmnote/SimpleMathJax/tags
 ARG SIMPLE_MATH_JAX_VERSION=v0.8.11
 # https://github.com/jmnote/SimpleMermaid/tags
@@ -61,9 +61,9 @@ RUN set -eux \
     && cd /var/www/html/extensions/ \
     && git clone --depth=1 -b $AWS_S3_VERSION                https://github.com/edwardspec/mediawiki-aws-s3.git                     AWS \
     && git clone --depth=1 -b $EMBED_VIDEO_VERSION           https://github.com/StarCitizenWiki/mediawiki-extensions-EmbedVideo.git EmbedVideo \
-    && git clone --depth=1 -b $DISPLAY_MAP_VERSION           https://github.com/jmnote/DisplayMap.git                               DisplayMap \
     && git clone --depth=1 -b $NEW_ARTICLE_TEMPLATES_VERSION https://github.com/jmnote/NewArticleTemplates.git                      NewArticleTemplates \
     && git clone --depth=1 -b $RESEND_VERSION                https://github.com/jmnote/Resend.git                                   Resend \
+    && git clone --depth=1 -b $SIMPLE_MAPS_VERSION           https://github.com/jmnote/SimpleMaps.git                               SimpleMaps \
     && git clone --depth=1 -b $SIMPLE_MATH_JAX_VERSION       https://github.com/jmnote/SimpleMathJax.git                            SimpleMathJax \
     && git clone --depth=1 -b $SIMPLE_MERMAID_VERSION        https://github.com/jmnote/SimpleMermaid.git                            SimpleMermaid \
     && echo done
@@ -75,3 +75,4 @@ RUN set -eux \
     && sed -i 's|"wikimedia/css-sanitizer": "[^"]*"|"wikimedia/css-sanitizer": "^6.0"|' composer.json \
     && composer update --no-dev --no-scripts --optimize-autoloader \
     && echo done
+
